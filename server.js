@@ -27,13 +27,6 @@ app.post("/app/new/", (req, res) => {
 	const stmt = db.prepare("INSERT INTO userinfo (user, pass) VALUES(?, ?)");
 	const info = stmt.run('newtest','38a7744f5523335db845ff1976bf4747');
 	res.status(201).json({"message":"1 record created: ID 3 (201)"});
-	for (const cat of setTimeout.iterate()) {
-		if(cat.id === 3) {
-			console.log(cat);
-			break;
-		}
-	}
-
 	//res.status(200).json(stmt);
 });
 // READ a list of all users (HTTP method GET) at endpoint /app/users/
