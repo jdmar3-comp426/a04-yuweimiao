@@ -25,7 +25,6 @@ app.get("/app/", (req, res, next) => {
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new/", (req, res) => {
 	const stmt = db.prepare("INSERT INTO userinfo (user, pass) VALUES(?, ?)");
-	md5(req.body.pass);
 	const info = stmt.run('newtest','38a7744f5523335db845ff1976bf4747');
 	res.status(201).json({"message":"1 record created: ID 3 (201)"},{info});
 	//res.status(200).json(stmt);
@@ -44,8 +43,7 @@ app.get("/app/user/:id", (req,res) => {
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
 app.patch("/app/update/user/:id", (req,res) => {
 	const stmt = db.prepare("UPDATE userinfo SET user = COALESCE(?,user), pass = COALESCE(?, pass) WHERE id = ?");
-	md5(req.body.pass);
-	const info = stmt.run ('oldest','9b1bb58afcc8132637f891cd1b6360ad',2)
+	const info = stmt.run ('oldest','9b1bb58afcc8132637f891cd1b6360ad',2);
 	res.status(405).json({"message":"1 record updated: ID 2 (200)"},{info});
 	//res.status(200).json(stmt);
 });
